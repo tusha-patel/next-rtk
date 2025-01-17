@@ -11,18 +11,22 @@ let Slice = createSlice({
     reducers: {
         addTodoList: (state, action) => {
             // console.log(action);
-
             let data = {
                 id: nanoid(),
                 title: action.payload,
             }
             state.todoList.push(data);
             localStorage.setItem("todos", JSON.stringify(state.todoList));
+        },
+        removeTodo: (state, action) => {
+            let data = state.todoList.filter((item) => item.id !== action.payload);
+            state.todoList = data;
+            localStorage.setItem("todos", JSON.stringify(data))
         }
     }
 });
 
 
 
-export const { addTodoList } = Slice.actions;
+export const { addTodoList, removeTodo } = Slice.actions;
 export default Slice.reducer;
